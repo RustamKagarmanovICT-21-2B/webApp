@@ -9,11 +9,16 @@ app.use(express.static('public'));      //для навигации по сай�
 
 let likeCount = 0;
 
-app.get('/api/likes', (req, res) => {
+app.get('/api/likes', (req, res) => { //если пользователь зашел на сайт отображение лайков
   res.json({ likes: likeCount });
 });
 
-app.post('/api/like', (req, res) => {
+app.post('/api/like', (req, res) => { //если пользователь нажал на кнопку +1
   likeCount++;
   res.json({ likes: likeCount });
 });
+
+app.listen(PORT, () => {
+  console.log(`Сервер запущен: http://localhost:${PORT}`);
+});
+
