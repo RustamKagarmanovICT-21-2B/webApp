@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Счётчик лайков</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; margin-top: 50px; }
+        button { font-size: 2rem; padding: 10px 20px; cursor: pointer; }
+        #count { font-size: 3rem; font-weight: bold; margin: 20px; }
+    </style>
+</head>
+<body>
+        <h1>❤️ Нравится</h1>
+    <div id="count">0</div>
+    <button id="likeBtn">Лайкнуть!</button>
+</body>
+    <script>
+        const countElement = document.getElementById('count');
+        const likeButton = document.getElementById('likeBtn');
+
+        async function loadLikes() {
+            const response = await fetch('/api/likes');
+            const data = await response.json();
+            countElement.textContent = data.likes;
+        }
+
+        async function sendLike() {
+            const response = await fetch('/api/like', { method: 'POST' });
+            const data = await response.json();
+            countElement.textContent = data.likes;
+        }
+
+        loadLikes();
+        likeButton.addEventListener('click', sendLike);
+    </script>
